@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleafe.org">
+<head th:replace="layout/layout :: head">
+
+</head>
+
+<body>
+
+<header th:replace="layout/layout :: header"></header>
+
+<main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h3>Encuentra el trabajo que andas buscando.</h3>
+            Puedes buscar por descripción y categoría.
+            <form class="form-inline" th:action="@{/search}" method="get" th:object="${search}">
+                <input type="text" class="form-control mb-3" th:field="*{descripcion}" id="exampleFormControlInput1"
+                       placeholder="Escriba una búsqueda">&nbsp;
+                <select th:field="*{categoria.id}" class="custom-select custom-select mb-3">
+                    <option th:value="${null}"  selected>Seleccione una categoría</option>
+                    <option th:each="cate : ${categorias}" th:value="${cate.id}"
+                            th:text="${cate.nombre}" ></option>
+
+                </select>&nbsp;&nbsp;
+
+                <button type="submit" class="btn btn-primary mb-3">Buscar</button>
+            </form>
+        </div>
+    </div>
+    <hr>
+
+    <div class="container">
+        <h2 class="font-weight-bold text-center text-capitalize">DESTACADOS</h2>
+        <div th:if="${msg != null}"  class="alert alert-success" th:text="${msg}" role="alert"></div>
+        <hr>
+        <div class="row" th:each="vacante : ${vacantes}">
+            <div class="col-md-3">
+                <img class="rounded mx-auto d-block" th:src="@{/logos/{img} (img=${vacante.imagen} ) }"
+                     alt="Generic placeholder image" width="100" height="100">
+            </div>
+            <div class="col-md-9">
+                <h2 th:text="${vacante.nombre}">Arquitecto</h2>
+                <h6 class="card-title"><strong>Categoría: </strong> <span th:text="${vacante.categoria.nombre}"></span></h6>
+                <h6 class="card-title"><strong>Publicado: </strong> <span th:text="${#dates.format(vacante.fecha, 'dd-MM-yyyy')}"> </span>
+                </h6>
+                <p th:text="${vacante.descripcion}"></p>
+                <p><a class="btn btn-succes" th:href="@{/vacantes/view/{id} (id=${vacante.id})}" role="button">Detalles
+                    &raquo;</a></p>
+            </div>
+        </div>
+
+
+    </div> <!-- /container -->
+
+</main>
+
+<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+
+<head th:replace="layout/layout :: head">
+
+
+
+<body>
+
+  <header th:replace="layout/layout :: header"></header>
+
+    <main role="main">     
+      <hr>
+      <div class="container"> 
+        <div class="row">
+          <div class="col-md-3">            
+            <img class="rounded mx-auto d-block" src="images/construccion-logo.png" alt="Generic placeholder image" width="220" height="220">            
+          </div>
+          <div class="col-md-9">
+            <div class="card">
+              <h4 class="card-header" th:text="${vacante.nombre}"><strong></strong></h4>
+              <div class="card-body">
+                <h5 class="card-title"><strong>Categoría: </strong><span th:text="${vacante.categoria.nombre}"></span></h5>
+                <h6 class="card-title"><strong>Publicado: </strong><span th:text="${vacante.fecha}"></span></h6>
+                <h6 class="card-title"><strong>Salario Ofrecido: </strong><span th:text="${vacante.salario}"></span></h6>
+                <p class="card-text" th:text="${vacante.descripcion}"></p>
+                <hr>
+                <form th:action="@{/solicitudes/save}" th:object="${solicitud}" method="post" enctype="multipart/form-data">
+                  <div class="row">
+                    <div class="col-md-6"> 
+                      <div class="form-group">
+                        <input type="hidden" th:name="vacante.id" th:value="${vacante.id}">
+                        <label for="comentarios">Comentarios</label>
+                        <textarea class="form-control" th:text="*{comentarios}" name="comentarios" id="comentarios" rows="2"></textarea>
+                      </div> 
+                    </div> 
+                    <div class="col-md-6"> 
+                      <div class="form-group">
+                        <label for="archivoCV">Curriculm Vitae</label>
+                        <input type="file" class="form-control-file" name="archivoCV" id="archivoCV">
+                        <p class="help-block">Archivos [ pdf,doc,docx ]</p>
+                      </div>
+                    </div>
+                  </div> 
+                  <hr>
+                  <button type="submit" title="Enviar mi Solicitud." class="btn btn-primary">Enviar</button>  
+                </form>
+              </div>
+            </div> 
+          </div>
+        </div>
+      </div> <!-- /container -->
+
+    </main>
+
+    <footer th:replace="layout/layout :: footer"></footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>     
+  </body>
+</html>

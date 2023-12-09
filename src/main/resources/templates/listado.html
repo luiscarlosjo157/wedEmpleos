@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="hpp://www.themeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de ofertas de trabajo</title>
+
+</head>
+<body>
+<h1>Listado de empleados</h1>
+<ul th:each="empleo: ${empleos}">
+    <li th:text="${empleo}"></li>
+</ul>
+</body>
+</html>
